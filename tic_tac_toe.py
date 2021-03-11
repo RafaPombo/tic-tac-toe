@@ -16,6 +16,7 @@ class TicTacToe:
         pygame.display.set_caption('Tic Tac Toe')
 
         self.board = Board(self)
+        self.board.prep_board()
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -34,6 +35,7 @@ class TicTacToe:
 
     def _check_mousedown_events(self, mouse_pos):
         """Respond to mouse presses."""
+        # Checks which square was clicked
         square_tl_clicked = self.board.square_tl.collidepoint(mouse_pos)
         square_tm_clicked = self.board.square_tm.collidepoint(mouse_pos)
         square_tr_clicked = self.board.square_tr.collidepoint(mouse_pos)
@@ -46,36 +48,27 @@ class TicTacToe:
 
         if square_tl_clicked and not self.board.squares[1]:
             self.board.create_cross(1)
-            self.board.squares[1] = True
         elif square_tm_clicked and not self.board.squares[2]:
             self.board.create_circle(2)
-            self.board.squares[2] = True
         elif square_tr_clicked and not self.board.squares[3]:
             self.board.create_circle(3)
-            self.board.squares[3] = True
         elif square_ml_clicked and not self.board.squares[4]:
             self.board.create_circle(4)
-            self.board.squares[4] = True
         elif square_mm_clicked and not self.board.squares[5]:
             self.board.create_circle(5)
-            self.board.squares[5] = True
         elif square_mr_clicked and not self.board.squares[6]:
             self.board.create_circle(6)
-            self.board.squares[6] = True
         elif square_bl_clicked and not self.board.squares[7]:
             self.board.create_circle(7)
-            self.board.squares[7] = True
         elif square_bm_clicked and not self.board.squares[8]:
             self.board.create_circle(8)
-            self.board.squares[8] = True
         elif square_br_clicked and not self.board.squares[9]:
             self.board.create_cross(9)
-            self.board.squares[9] = True
 
     def _update_screen(self):
         """Update images on the screen and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
-        self.board.prep_board()
+        self.board.draw_board()
 
         for circle in self.board.circles:
             self.board.draw_circle(circle.surface, circle.circle_rect)
