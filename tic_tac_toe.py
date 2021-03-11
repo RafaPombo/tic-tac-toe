@@ -1,7 +1,7 @@
 import pygame
 import sys
 from settings import Settings
-from board import Board, Circle, Cross
+from board import Board
 
 
 class TicTacToe:
@@ -34,16 +34,43 @@ class TicTacToe:
 
     def _check_mousedown_events(self, mouse_pos):
         """Respond to mouse presses."""
-        square_mm_clicked = self.board.square_mm.collidepoint(mouse_pos)
-        square_br_clicked = self.board.square_br.collidepoint(mouse_pos)
         square_tl_clicked = self.board.square_tl.collidepoint(mouse_pos)
+        square_tm_clicked = self.board.square_tm.collidepoint(mouse_pos)
+        square_tr_clicked = self.board.square_tr.collidepoint(mouse_pos)
+        square_ml_clicked = self.board.square_ml.collidepoint(mouse_pos)
+        square_mm_clicked = self.board.square_mm.collidepoint(mouse_pos)
+        square_mr_clicked = self.board.square_mr.collidepoint(mouse_pos)
+        square_bl_clicked = self.board.square_bl.collidepoint(mouse_pos)
+        square_bm_clicked = self.board.square_bm.collidepoint(mouse_pos)
+        square_br_clicked = self.board.square_br.collidepoint(mouse_pos)
 
-        if square_mm_clicked:
-            self.board.create_circle(5)
-        elif square_br_clicked:
-            self.board.create_cross(9)
-        elif square_tl_clicked:
+        if square_tl_clicked and not self.board.squares[1]:
             self.board.create_cross(1)
+            self.board.squares[1] = True
+        elif square_tm_clicked and not self.board.squares[2]:
+            self.board.create_circle(2)
+            self.board.squares[2] = True
+        elif square_tr_clicked and not self.board.squares[3]:
+            self.board.create_circle(3)
+            self.board.squares[3] = True
+        elif square_ml_clicked and not self.board.squares[4]:
+            self.board.create_circle(4)
+            self.board.squares[4] = True
+        elif square_mm_clicked and not self.board.squares[5]:
+            self.board.create_circle(5)
+            self.board.squares[5] = True
+        elif square_mr_clicked and not self.board.squares[6]:
+            self.board.create_circle(6)
+            self.board.squares[6] = True
+        elif square_bl_clicked and not self.board.squares[7]:
+            self.board.create_circle(7)
+            self.board.squares[7] = True
+        elif square_bm_clicked and not self.board.squares[8]:
+            self.board.create_circle(8)
+            self.board.squares[8] = True
+        elif square_br_clicked and not self.board.squares[9]:
+            self.board.create_cross(9)
+            self.board.squares[9] = True
 
     def _update_screen(self):
         """Update images on the screen and flip to the new screen."""
