@@ -18,15 +18,6 @@ class Board:
         self.circles = pygame.sprite.Group()
         self.crosses = pygame.sprite.Group()
 
-        # Keep track of occupied squares.
-        self.squares = {
-            1: False, 2: False, 3: False,
-            4: False, 5: False, 6: False,
-            7: False, 8: False, 9: False,
-        }
-
-    def prep_board(self):
-        """Draw the board."""
         # Draw each of the 4 board lines.
         self.r1_rect = pygame.Rect(0, self.screen.get_height() / 3, self.screen.get_height(), 10)
         self.r2_rect = pygame.Rect(0, 2 * self.screen.get_height() / 3, self.screen.get_height(), 10)
@@ -54,9 +45,6 @@ class Board:
             9: (self.coordinates[3], self.coordinates[3]),
         }
 
-        self._create_squares()
-
-    def _create_squares(self):
         """Create a rect for each square in the board and position it correctly."""
         # The sides of each square should be equal to one third the sides of the rows and columns,
         # with a subtracted 9 pixels to compensate for the board itself.
@@ -98,12 +86,17 @@ class Board:
         self.square_br.top = self.r2_rect.bottom
         self.square_br.left = self.c2_rect.right
 
+        # Keep track of occupied squares.
+        self.squares = {
+            1: False, 2: False, 3: False,
+            4: False, 5: False, 6: False,
+            7: False, 8: False, 9: False,
+        }
+
     def draw_board(self):
         """Draw the board lines."""
-        pygame.draw.rect(self.screen, self.board_color, self.r1_rect, border_radius=3)
-        pygame.draw.rect(self.screen, self.board_color, self.r2_rect, border_radius=3)
-        pygame.draw.rect(self.screen, self.board_color, self.c1_rect, border_radius=3)
-        pygame.draw.rect(self.screen, self.board_color, self.c2_rect, border_radius=3)
+        for rect in [self.r1_rect, self.r2_rect, self.c1_rect, self.c2_rect]:
+            pygame.draw.rect(self.screen, self.board_color, rect, border_radius=5)
         
     def create_circle(self, square):
         """Create a circle object."""
@@ -112,6 +105,9 @@ class Board:
         self.circles.add(new_circle)
 
         self.squares[square] = True
+
+        self.ttt_game.circle_turn = False
+        self.ttt_game.cross_turn = True
 
     def draw_circle(self, surface, rect):
         """Draw a circle object."""
@@ -124,6 +120,9 @@ class Board:
         self.crosses.add(new_cross)
 
         self.squares[square] = True
+
+        self.ttt_game.cross_turn = False
+        self.ttt_game.circle_turn = True
 
     def draw_cross(self, surface, rect):
         """Draw a cross object."""
