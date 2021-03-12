@@ -18,7 +18,7 @@ class Board:
         self.circles = pygame.sprite.Group()
         self.crosses = pygame.sprite.Group()
 
-        # Draw each of the 4 board lines.
+        # Create a rect for each of the 4 board lines.
         self.r1_rect = pygame.Rect(0, self.screen.get_height() / 3, self.screen.get_height(), 10)
         self.r2_rect = pygame.Rect(0, 2 * self.screen.get_height() / 3, self.screen.get_height(), 10)
         self.c1_rect = pygame.Rect(self.screen.get_width() / 3, 0, 10, self.screen.get_height())

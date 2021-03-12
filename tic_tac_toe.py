@@ -1,5 +1,6 @@
 import pygame
 import sys
+from random import randint
 from settings import Settings
 from board import Board
 
@@ -51,41 +52,73 @@ class TicTacToe:
         if self.circle_turn:
             if square_tl_clicked and not self.board.squares[1]:
                 self.board.create_circle(1)
+                self._bot_turn()
             elif square_tm_clicked and not self.board.squares[2]:
                 self.board.create_circle(2)
+                self._bot_turn()
             elif square_tr_clicked and not self.board.squares[3]:
                 self.board.create_circle(3)
+                self._bot_turn()
             elif square_ml_clicked and not self.board.squares[4]:
                 self.board.create_circle(4)
+                self._bot_turn()
             elif square_mm_clicked and not self.board.squares[5]:
                 self.board.create_circle(5)
+                self._bot_turn()
             elif square_mr_clicked and not self.board.squares[6]:
                 self.board.create_circle(6)
+                self._bot_turn()
             elif square_bl_clicked and not self.board.squares[7]:
                 self.board.create_circle(7)
+                self._bot_turn()
             elif square_bm_clicked and not self.board.squares[8]:
                 self.board.create_circle(8)
+                self._bot_turn()
             elif square_br_clicked and not self.board.squares[9]:
                 self.board.create_circle(9)
+                self._bot_turn()
         else:
             if square_tl_clicked and not self.board.squares[1]:
                 self.board.create_cross(1)
+                self._bot_turn()
             elif square_tm_clicked and not self.board.squares[2]:
                 self.board.create_cross(2)
+                self._bot_turn()
             elif square_tr_clicked and not self.board.squares[3]:
                 self.board.create_cross(3)
+                self._bot_turn()
             elif square_ml_clicked and not self.board.squares[4]:
                 self.board.create_cross(4)
+                self._bot_turn()
             elif square_mm_clicked and not self.board.squares[5]:
                 self.board.create_cross(5)
+                self._bot_turn()
             elif square_mr_clicked and not self.board.squares[6]:
                 self.board.create_cross(6)
+                self._bot_turn()
             elif square_bl_clicked and not self.board.squares[7]:
                 self.board.create_cross(7)
+                self._bot_turn()
             elif square_bm_clicked and not self.board.squares[8]:
                 self.board.create_cross(8)
+                self._bot_turn()
             elif square_br_clicked and not self.board.squares[9]:
                 self.board.create_cross(9)
+                self._bot_turn()
+
+    def _bot_turn(self):
+        """Place a cross or a circle in a random square."""
+
+        # Code only gets executed if there are any squares left.
+        if not all(self.board.squares[square] is True for square in self.board.squares):
+            square = randint(1, 9)
+            while self.board.squares[square]:
+                square = randint(1, 9)
+
+            if self.circle_turn:
+                self.board.create_circle(square)
+            else:
+                self.board.create_cross(square)
 
     def _update_screen(self):
         """Update images on the screen and flip to the new screen."""
