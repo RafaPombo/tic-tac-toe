@@ -3,6 +3,7 @@ import sys
 from random import randint
 from settings import Settings
 from board import Board
+from start_menu import StartMenu
 
 
 class TicTacToe:
@@ -16,10 +17,13 @@ class TicTacToe:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Tic Tac Toe')
 
+        self.start_menu = StartMenu(self)
         self.board = Board(self)
 
         self.circle_turn = False
-        self.cross_turn = False
+        self.cross_turn = True
+
+        self.game_active = False
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -38,7 +42,15 @@ class TicTacToe:
 
     def _check_mousedown_events(self, mouse_pos):
         """Respond to mouse presses."""
-        # Checks which square was clicked
+        if self.game_active:
+            self._check_square_click(mouse_pos)
+        else:
+            play_button_clicked = self.start_menu.button_rect.collidepoint(mouse_pos)
+            if play_button_clicked:
+                self.game_active = True
+
+    def _check_square_click(self, mouse_pos):
+        """Checks which square was clicked."""
         square_tl_clicked = self.board.square_tl.collidepoint(mouse_pos)
         square_tm_clicked = self.board.square_tm.collidepoint(mouse_pos)
         square_tr_clicked = self.board.square_tr.collidepoint(mouse_pos)
@@ -111,7 +123,11 @@ class TicTacToe:
 
         # Code only gets executed if there are any squares left.
         if not all(self.board.squares[square] is True for square in self.board.squares):
+
+            # Select a random square.
             square = randint(1, 9)
+
+            # If the square selected is already filled, select another square.
             while self.board.squares[square]:
                 square = randint(1, 9)
 
@@ -129,6 +145,9 @@ class TicTacToe:
             self.board.draw_circle(circle.surface, circle.circle_rect)
         for cross in self.board.crosses:
             self.board.draw_cross(cross.surface, cross.cross_rect)
+
+        if not self.game_active:
+            self.start_menu.draw_menu()
 
         pygame.display.flip()
 

@@ -93,6 +93,13 @@ class Board:
             7: False, 8: False, 9: False,
         }
 
+        # Keep track of which squares have crosses or circles on them.
+        self.squares_xo = {
+            1: '', 2: '', 3: '',
+            4: '', 5: '', 6: '',
+            7: '', 8: '', 9: ''
+        }
+
     def draw_board(self):
         """Draw the board lines."""
         for rect in [self.r1_rect, self.r2_rect, self.c1_rect, self.c2_rect]:
@@ -105,6 +112,7 @@ class Board:
         self.circles.add(new_circle)
 
         self.squares[square] = True
+        self.squares_xo[square] = 'circle'
 
         self.ttt_game.circle_turn = False
         self.ttt_game.cross_turn = True
@@ -120,6 +128,7 @@ class Board:
         self.crosses.add(new_cross)
 
         self.squares[square] = True
+        self.squares_xo[square] = 'cross'
 
         self.ttt_game.cross_turn = False
         self.ttt_game.circle_turn = True
