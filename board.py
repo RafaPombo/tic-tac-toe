@@ -48,41 +48,41 @@ class Board:
         """Create a rect for each square in the board and position it correctly."""
         # The sides of each square should be equal to one third the sides of the rows and columns,
         # with a subtracted 9 pixels to compensate for the board itself.
-        width = height = (self.c1_rect.height / 3) - 9
+        self.square_width = self.square_height = int((self.c1_rect.height / 3) - 9)
 
-        self.square_tl = pygame.Rect(0, 0, width, height)
+        self.square_tl = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_tl.bottom = self.r1_rect.top
         self.square_tl.right = self.c1_rect.left
 
-        self.square_tm = pygame.Rect(0, 0, width, height)
+        self.square_tm = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_tm.bottom = self.r1_rect.top
         self.square_tm.left = self.c1_rect.right
 
-        self.square_tr = pygame.Rect(0, 0, width, height)
+        self.square_tr = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_tr.bottom = self.r1_rect.top
         self.square_tr.left = self.c2_rect.right
 
-        self.square_ml = pygame.Rect(0, 0, width, height)
+        self.square_ml = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_ml.top = self.r1_rect.bottom
         self.square_ml.right = self.c1_rect.left
 
-        self.square_mm = pygame.Rect(0, 0, width, height)
+        self.square_mm = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_mm.top = self.r1_rect.bottom
         self.square_mm.left = self.c1_rect.right
 
-        self.square_mr = pygame.Rect(0, 0, width, height)
+        self.square_mr = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_mr.top = self.r1_rect.bottom
         self.square_mr.left = self.c2_rect.right
 
-        self.square_bl = pygame.Rect(0, 0, width, height)
+        self.square_bl = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_bl.top = self.r2_rect.bottom
         self.square_bl.right = self.c1_rect.left
 
-        self.square_bm = pygame.Rect(0, 0, width, height)
+        self.square_bm = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_bm.top = self.r2_rect.bottom
         self.square_bm.left = self.c1_rect.right
 
-        self.square_br = pygame.Rect(0, 0, width, height)
+        self.square_br = pygame.Rect(0, 0, self.square_width, self.square_height)
         self.square_br.top = self.r2_rect.bottom
         self.square_br.left = self.c2_rect.right
 
@@ -107,8 +107,8 @@ class Board:
 
     def create_circle(self, square):
         """Create a circle object."""
-        new_circle = Circle()
-        new_circle.circle_rect.center = self.squares_coordinates[square]
+        new_circle = Circle(self)
+        new_circle.rect.center = self.squares_coordinates[square]
         self.circles.add(new_circle)
 
         self.squares[square] = True
@@ -123,8 +123,8 @@ class Board:
 
     def create_cross(self, square):
         """Create a cross object."""
-        new_cross = Cross()
-        new_cross.cross_rect.center = self.squares_coordinates[square]
+        new_cross = Cross(self)
+        new_cross.rect.center = self.squares_coordinates[square]
         self.crosses.add(new_cross)
 
         self.squares[square] = True
@@ -140,25 +140,25 @@ class Board:
 
 class Circle(Sprite):
 
-    def __init__(self):
+    def __init__(self, board):
         super().__init__()
-        self.settings = Settings()
+        self.board = board
 
-        pygame.font.init()
-        self.myfont = pygame.font.SysFont('Arial', 300)
+        self.image = pygame.image.load('images/circle.png')
+        self.scale_size = (int(self.board.square_width * 3 / 4), int(self.board.square_height * 3 / 4))
+        self.image = pygame.transform.scale(self.image, (self.scale_size))
 
-        self.surface = self.myfont.render('o', True, self.settings.circle_color)
-        self.circle_rect = self.surface.get_rect()
+        self.rect = self.image.get_rect()
 
 
 class Cross(Sprite):
 
-    def __init__(self):
+    def __init__(self, board):
         super().__init__()
-        self.settings = Settings()
+        self.board = board
 
-        pygame.font.init()
-        self.myfont = pygame.font.SysFont('Arial', 300)
+        self.image = pygame.image.load('images/cross.png')
+        self.scale_size = (int(self.board.square_width * 3 / 4), int(self.board.square_height * 3 / 4))
+        self.image = pygame.transform.scale(self.image, (self.scale_size))
 
-        self.surface = self.myfont.render('x', True, self.settings.cross_color)
-        self.cross_rect = self.surface.get_rect()
+        self.rect = self.image.get_rect()

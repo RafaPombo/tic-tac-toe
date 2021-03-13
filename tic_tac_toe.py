@@ -4,6 +4,7 @@ from random import randint
 from settings import Settings
 from board import Board
 from start_menu import StartMenu
+from scoreboard import Scoreboard
 
 
 class TicTacToe:
@@ -19,6 +20,7 @@ class TicTacToe:
 
         self.start_menu = StartMenu(self)
         self.board = Board(self)
+        self.scoreboard = Scoreboard(self)
 
         self.circle_turn = False
         self.cross_turn = True
@@ -172,11 +174,12 @@ class TicTacToe:
         else:
             self.screen.fill(self.settings.bg_color)
             self.board.draw_board()
+            self.scoreboard.draw_scoreboard()
 
             for circle in self.board.circles:
-                self.board.draw_circle(circle.surface, circle.circle_rect)
+                self.board.draw_circle(circle.image, circle.rect)
             for cross in self.board.crosses:
-                self.board.draw_cross(cross.surface, cross.cross_rect)
+                self.board.draw_cross(cross.image, cross.rect)
 
             self.check_win()
 
@@ -186,3 +189,5 @@ class TicTacToe:
 if __name__ == '__main__':
     ttt = TicTacToe()
     ttt.run_game()
+
+# TODO: Make it possible for the player to change cross and circle colors, background colors, etc.

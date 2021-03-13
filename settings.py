@@ -8,8 +8,8 @@ class Settings:
         """Initialize the game's settings."""
         # Screen size settings).
         # Screen height should be a multiple of 3.
-        self.screen_width = 1040
-        self.screen_height = 740
+        self.screen_width = 1140
+        self.screen_height = 840
 
         # Board settings.
         self.bg_color = (30, 30, 30)
@@ -17,6 +17,6 @@ class Settings:
         self.win_line_color = (0, 255, 0)
 
         # Scoreboard settings.
-        self.scoreboard_color = (200, 200, 200)
+        self.scoreboard_color = (200, 80, 200)
         self.scoreboard_text_color = (30, 30, 30)
         self.scoreboard_font = pygame.font.SysFont('Arial', 48)
