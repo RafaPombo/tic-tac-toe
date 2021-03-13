@@ -27,6 +27,11 @@ class TicTacToe:
 
         self.game_active = False
 
+        # If someone wins the game, store two values representing
+        # the squares to draw a line on the board.
+        self.game_over = []
+        self.winner = ''
+
     def run_game(self):
         """Start the main loop for the game."""
         while True:
@@ -45,11 +50,41 @@ class TicTacToe:
     def _check_mousedown_events(self, mouse_pos):
         """Respond to mouse presses."""
         if self.game_active:
-            self._check_square_click(mouse_pos)
+            if not self.game_over:
+                self._check_square_click(mouse_pos)
+            elif self.game_over:
+                self.check_play_again_button(mouse_pos)
+            self.check_restart_button(mouse_pos)
         else:
             play_button_clicked = self.start_menu.button_rect.collidepoint(mouse_pos)
             if play_button_clicked:
                 self.game_active = True
+
+    def check_play_again_button(self, mouse_pos):
+        """Checks if the 'play again' button has been clicked."""
+        button_clicked = self.scoreboard.play_again_rect.collidepoint(mouse_pos)
+        if button_clicked:
+            self.restart_game()
+
+    def check_restart_button(self, mouse_pos):
+        """Checks if the restart button has been clicked."""
+        button_clicked = self.scoreboard.restart_text_rect.collidepoint(mouse_pos)
+        if button_clicked:
+            self.restart_game()
+
+    def restart_game(self):
+        """Restarts the game"""
+        for circle in self.board.circles:
+            self.board.circles.remove(circle)
+        for cross in self.board.crosses:
+            self.board.crosses.remove(cross)
+
+        for v in self.board.squares:
+            self.board.squares[v] = False
+        for v in self.board.squares_xo:
+            self.board.squares_xo[v] = ''
+
+        self.game_over = False
 
     def _check_square_click(self, mouse_pos):
         """Checks which square was clicked."""
@@ -66,65 +101,119 @@ class TicTacToe:
         if self.circle_turn:
             if square_tl_clicked and not self.board.squares[1]:
                 self.board.create_circle(1)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_tm_clicked and not self.board.squares[2]:
                 self.board.create_circle(2)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_tr_clicked and not self.board.squares[3]:
                 self.board.create_circle(3)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_ml_clicked and not self.board.squares[4]:
                 self.board.create_circle(4)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_mm_clicked and not self.board.squares[5]:
                 self.board.create_circle(5)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_mr_clicked and not self.board.squares[6]:
                 self.board.create_circle(6)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_bl_clicked and not self.board.squares[7]:
                 self.board.create_circle(7)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_bm_clicked and not self.board.squares[8]:
                 self.board.create_circle(8)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
             elif square_br_clicked and not self.board.squares[9]:
                 self.board.create_circle(9)
-                self._bot_turn()
+                self.check_win('Circle')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Cross')
         else:
             if square_tl_clicked and not self.board.squares[1]:
                 self.board.create_cross(1)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_tm_clicked and not self.board.squares[2]:
                 self.board.create_cross(2)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_tr_clicked and not self.board.squares[3]:
                 self.board.create_cross(3)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_ml_clicked and not self.board.squares[4]:
                 self.board.create_cross(4)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_mm_clicked and not self.board.squares[5]:
                 self.board.create_cross(5)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_mr_clicked and not self.board.squares[6]:
                 self.board.create_cross(6)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_bl_clicked and not self.board.squares[7]:
                 self.board.create_cross(7)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_bm_clicked and not self.board.squares[8]:
                 self.board.create_cross(8)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
             elif square_br_clicked and not self.board.squares[9]:
                 self.board.create_cross(9)
-                self._bot_turn()
+                self.check_win('Cross')
+                if not self.game_over:
+                    self._bot_turn()
+                    self.check_win('Circle')
 
     def _bot_turn(self):
         """Place a cross or a circle in a random square."""
 
         # Code only gets executed if there are any squares left.
-        if not all(self.board.squares[square] is True for square in self.board.squares):
+        if not self.game_over:
 
             # Select a random square.
             square = randint(1, 9)
@@ -138,32 +227,32 @@ class TicTacToe:
             else:
                 self.board.create_cross(square)
 
-    def check_win(self):
+    def check_win(self, winner):
         """Check if someone has won the game, and draw a line if they have."""
         if self.board.squares_xo[1] == self.board.squares_xo[2] == self.board.squares_xo[3] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[1], self.board.squares_coordinates[3], 10)
+            self.game_over = [1, 3]
+            self.winner = winner
         elif self.board.squares_xo[4] == self.board.squares_xo[5] == self.board.squares_xo[6] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[4], self.board.squares_coordinates[6], 10)
+            self.game_over = [4, 6]
+            self.winner = winner
         elif self.board.squares_xo[7] == self.board.squares_xo[8] == self.board.squares_xo[9] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[7], self.board.squares_coordinates[9], 10)
+            self.game_over = [7, 9]
+            self.winner = winner
         elif self.board.squares_xo[1] == self.board.squares_xo[4] == self.board.squares_xo[7] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[1], self.board.squares_coordinates[7], 10)
+            self.game_over = [1, 7]
+            self.winner = winner
         elif self.board.squares_xo[2] == self.board.squares_xo[5] == self.board.squares_xo[8] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[2], self.board.squares_coordinates[8], 10)
+            self.game_over = [2, 8]
+            self.winner = winner
         elif self.board.squares_xo[3] == self.board.squares_xo[6] == self.board.squares_xo[9] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[3], self.board.squares_coordinates[9], 10)
+            self.game_over = [3, 9]
+            self.winner = winner
         elif self.board.squares_xo[1] == self.board.squares_xo[5] == self.board.squares_xo[9] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[1], self.board.squares_coordinates[9], 10)
+            self.game_over = [1, 9]
+            self.winner = winner
         elif self.board.squares_xo[3] == self.board.squares_xo[5] == self.board.squares_xo[7] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color,
-                             self.board.squares_coordinates[3], self.board.squares_coordinates[7], 10)
+            self.game_over = [3, 7]
+            self.winner = winner
 
     def _update_screen(self):
         """Update images on the screen and flip to the new screen."""
@@ -181,8 +270,9 @@ class TicTacToe:
             for cross in self.board.crosses:
                 self.board.draw_cross(cross.image, cross.rect)
 
-            self.check_win()
-
+            if self.game_over:
+                self.board.draw_win_line(self.game_over)
+                self.scoreboard.show_game_over(self.winner)
         pygame.display.flip()
 
 

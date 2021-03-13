@@ -18,5 +18,6 @@ class Settings:
 
         # Scoreboard settings.
         self.scoreboard_color = (200, 80, 200)
-        self.scoreboard_text_color = (30, 30, 30)
+        self.scoreboard_text_color = (0, 0, 0)
         self.scoreboard_font = pygame.font.SysFont('Arial', 48)
+        self.button_color = (0, 128, 0)

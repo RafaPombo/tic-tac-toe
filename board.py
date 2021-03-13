@@ -105,6 +105,11 @@ class Board:
         for rect in [self.r1_rect, self.r2_rect, self.c1_rect, self.c2_rect]:
             pygame.draw.rect(self.screen, self.board_color, rect, border_radius=5)
 
+    def draw_win_line(self, squares):
+        """Draw a line if someone has won the game."""
+        pygame.draw.line(self.screen, self.settings.win_line_color,
+                         self.squares_coordinates[squares[0]], self.squares_coordinates[squares[1]], 5)
+
     def create_circle(self, square):
         """Create a circle object."""
         new_circle = Circle(self)
@@ -146,7 +151,7 @@ class Circle(Sprite):
 
         self.image = pygame.image.load('images/circle.png')
         self.scale_size = (int(self.board.square_width * 3 / 4), int(self.board.square_height * 3 / 4))
-        self.image = pygame.transform.scale(self.image, (self.scale_size))
+        self.image = pygame.transform.scale(self.image, self.scale_size)
 
         self.rect = self.image.get_rect()
 
@@ -159,6 +164,6 @@ class Cross(Sprite):
 
         self.image = pygame.image.load('images/cross.png')
         self.scale_size = (int(self.board.square_width * 3 / 4), int(self.board.square_height * 3 / 4))
-        self.image = pygame.transform.scale(self.image, (self.scale_size))
+        self.image = pygame.transform.scale(self.image, self.scale_size)
 
         self.rect = self.image.get_rect()
