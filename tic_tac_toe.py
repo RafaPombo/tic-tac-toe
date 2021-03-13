@@ -139,21 +139,29 @@ class TicTacToe:
     def check_win(self):
         """Check if someone has won the game, and draw a line if they have."""
         if self.board.squares_xo[1] == self.board.squares_xo[2] == self.board.squares_xo[3] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.row_1_point_1, self.board.row_1_point_2, 10)
-        if self.board.squares_xo[4] == self.board.squares_xo[5] == self.board.squares_xo[6] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.row_2_point_1, self.board.row_2_point_2, 10)
-        if self.board.squares_xo[7] == self.board.squares_xo[8] == self.board.squares_xo[9] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.row_3_point_1, self.board.row_3_point_2, 10)
-        if self.board.squares_xo[1] == self.board.squares_xo[4] == self.board.squares_xo[7] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.column_1_point_1, self.board.column_1_point_2, 10)
-        if self.board.squares_xo[2] == self.board.squares_xo[5] == self.board.squares_xo[8] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.column_2_point_1, self.board.column_2_point_2, 10)
-        if self.board.squares_xo[3] == self.board.squares_xo[6] == self.board.squares_xo[9] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.column_3_point_1, self.board.column_3_point_2, 10)
-        if self.board.squares_xo[1] == self.board.squares_xo[5] == self.board.squares_xo[9] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.diagonal_1_point_1, self.board.diagonal_1_point_2, 10)
-        if self.board.squares_xo[3] == self.board.squares_xo[5] == self.board.squares_xo[7] != '':
-            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.diagonal_2_point_1, self.board.diagonal_2_point_2, 10)
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[1], self.board.squares_coordinates[3], 10)
+        elif self.board.squares_xo[4] == self.board.squares_xo[5] == self.board.squares_xo[6] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[4], self.board.squares_coordinates[6], 10)
+        elif self.board.squares_xo[7] == self.board.squares_xo[8] == self.board.squares_xo[9] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[7], self.board.squares_coordinates[9], 10)
+        elif self.board.squares_xo[1] == self.board.squares_xo[4] == self.board.squares_xo[7] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[1], self.board.squares_coordinates[7], 10)
+        elif self.board.squares_xo[2] == self.board.squares_xo[5] == self.board.squares_xo[8] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[2], self.board.squares_coordinates[8], 10)
+        elif self.board.squares_xo[3] == self.board.squares_xo[6] == self.board.squares_xo[9] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[3], self.board.squares_coordinates[9], 10)
+        elif self.board.squares_xo[1] == self.board.squares_xo[5] == self.board.squares_xo[9] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[1], self.board.squares_coordinates[9], 10)
+        elif self.board.squares_xo[3] == self.board.squares_xo[5] == self.board.squares_xo[7] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color,
+                             self.board.squares_coordinates[3], self.board.squares_coordinates[7], 10)
 
     def _update_screen(self):
         """Update images on the screen and flip to the new screen."""

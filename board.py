@@ -100,30 +100,6 @@ class Board:
             7: '', 8: '', 9: ''
         }
 
-        self.row_1_point_1 = (self.r1_rect.width / 6, self.c1_rect.height / 6)
-        self.row_1_point_2 = (self.r1_rect.width * 5 / 6, self.c1_rect.height / 6)
-
-        self.row_2_point_1 = (self.r1_rect.width / 6, self.c1_rect.height / 2)
-        self.row_2_point_2 = (self.r1_rect.width * 5 / 6, self.c1_rect.height / 2)
-
-        self.row_3_point_1 = (self.r1_rect.width / 6, self.c1_rect.height * 5 / 6)
-        self.row_3_point_2 = (self.r1_rect.width * 5 / 6, self.c1_rect.height * 5 / 6)
-
-        self.column_1_point_1 = (self.r1_rect.width / 6, self.c1_rect.height / 6)
-        self.column_1_point_2 = (self.r1_rect.width / 6, self.c1_rect.height * 5 / 6)
-
-        self.column_2_point_1 = (self.r1_rect.width / 2, self.c1_rect.height / 6)
-        self.column_2_point_2 = (self.r1_rect.width / 2, self.c1_rect.height * 5 / 6)
-
-        self.column_3_point_1 = (self.r1_rect.width * 5 / 6, self.c1_rect.height / 6)
-        self.column_3_point_2 = (self.r1_rect.width * 5 / 6, self.c1_rect.height * 5 / 6)
-
-        self.diagonal_1_point_1 = (self.r1_rect.width / 6, self.c1_rect.height / 6)
-        self.diagonal_1_point_2 = (self.r1_rect.width * 5 / 6, self.c1_rect.height * 5 / 6)
-
-        self.diagonal_2_point_1 = (self.r1_rect.width / 6, self.c1_rect.height * 5 / 6)
-        self.diagonal_2_point_2 = (self.r1_rect.width * 5 / 6, self.c1_rect.height / 6)
-
     def draw_board(self):
         """Draw the board lines."""
         for rect in [self.r1_rect, self.r2_rect, self.c1_rect, self.c2_rect]:

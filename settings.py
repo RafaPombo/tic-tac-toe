@@ -11,4 +11,4 @@ class Settings:
         self.board_color = (255, 255, 255)
         self.cross_color = (0, 0, 255)
         self.circle_color = (255, 0, 0)
-        self.win_line_color = (0, 127, 127)
+        self.win_line_color = (0, 255, 0)
