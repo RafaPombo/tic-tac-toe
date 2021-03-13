@@ -21,8 +21,8 @@ class Board:
         # Create a rect for each of the 4 board lines.
         self.r1_rect = pygame.Rect(0, self.screen.get_height() / 3, self.screen.get_height(), 10)
         self.r2_rect = pygame.Rect(0, 2 * self.screen.get_height() / 3, self.screen.get_height(), 10)
-        self.c1_rect = pygame.Rect(self.screen.get_width() / 3, 0, 10, self.screen.get_height())
-        self.c2_rect = pygame.Rect(2 * self.screen.get_width() / 3, 0, 10, self.screen.get_height())
+        self.c1_rect = pygame.Rect(self.r1_rect.width / 3, 0, 10, self.screen.get_height())
+        self.c2_rect = pygame.Rect(2 * self.r1_rect.width / 3, 0, 10, self.screen.get_height())
 
         # Get the coordinates for the center of each row and column.
         self.coordinates = {
