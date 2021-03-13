@@ -136,18 +136,41 @@ class TicTacToe:
             else:
                 self.board.create_cross(square)
 
+    def check_win(self):
+        """Check if someone has won the game, and draw a line if they have."""
+        if self.board.squares_xo[1] == self.board.squares_xo[2] == self.board.squares_xo[3] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.row_1_point_1, self.board.row_1_point_2, 10)
+        if self.board.squares_xo[4] == self.board.squares_xo[5] == self.board.squares_xo[6] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.row_2_point_1, self.board.row_2_point_2, 10)
+        if self.board.squares_xo[7] == self.board.squares_xo[8] == self.board.squares_xo[9] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.row_3_point_1, self.board.row_3_point_2, 10)
+        if self.board.squares_xo[1] == self.board.squares_xo[4] == self.board.squares_xo[7] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.column_1_point_1, self.board.column_1_point_2, 10)
+        if self.board.squares_xo[2] == self.board.squares_xo[5] == self.board.squares_xo[8] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.column_2_point_1, self.board.column_2_point_2, 10)
+        if self.board.squares_xo[3] == self.board.squares_xo[6] == self.board.squares_xo[9] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.column_3_point_1, self.board.column_3_point_2, 10)
+        if self.board.squares_xo[1] == self.board.squares_xo[5] == self.board.squares_xo[9] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.diagonal_1_point_1, self.board.diagonal_1_point_2, 10)
+        if self.board.squares_xo[3] == self.board.squares_xo[5] == self.board.squares_xo[7] != '':
+            pygame.draw.line(self.screen, self.settings.win_line_color, self.board.diagonal_2_point_1, self.board.diagonal_2_point_2, 10)
+
     def _update_screen(self):
         """Update images on the screen and flip to the new screen."""
-        self.screen.fill(self.settings.bg_color)
-        self.board.draw_board()
-
-        for circle in self.board.circles:
-            self.board.draw_circle(circle.surface, circle.circle_rect)
-        for cross in self.board.crosses:
-            self.board.draw_cross(cross.surface, cross.cross_rect)
-
+        # Draw the start menu if the game is inactive,
+        # else, draw the board, circles, and crosses.
         if not self.game_active:
             self.start_menu.draw_menu()
+        else:
+            self.screen.fill(self.settings.bg_color)
+            self.board.draw_board()
+
+            for circle in self.board.circles:
+                self.board.draw_circle(circle.surface, circle.circle_rect)
+            for cross in self.board.crosses:
+                self.board.draw_cross(cross.surface, cross.cross_rect)
+
+            self.check_win()
 
         pygame.display.flip()
 
