@@ -79,10 +79,8 @@ class TicTacToe:
         for cross in self.board.crosses:
             self.board.crosses.remove(cross)
 
-        for v in self.board.squares:
-            self.board.squares[v] = False
-        for v in self.board.squares_xo:
-            self.board.squares_xo[v] = ''
+        for square in self.board.squares:
+            self.board.squares[square] = ''
 
         self.game_over = False
 
@@ -229,28 +227,28 @@ class TicTacToe:
 
     def check_win(self, winner):
         """Check if someone has won the game, and draw a line if they have."""
-        if self.board.squares_xo[1] == self.board.squares_xo[2] == self.board.squares_xo[3] != '':
+        if self.board.squares[1] == self.board.squares[2] == self.board.squares[3] != '':
             self.game_over = [1, 3]
             self.winner = winner
-        elif self.board.squares_xo[4] == self.board.squares_xo[5] == self.board.squares_xo[6] != '':
+        elif self.board.squares[4] == self.board.squares[5] == self.board.squares[6] != '':
             self.game_over = [4, 6]
             self.winner = winner
-        elif self.board.squares_xo[7] == self.board.squares_xo[8] == self.board.squares_xo[9] != '':
+        elif self.board.squares[7] == self.board.squares[8] == self.board.squares[9] != '':
             self.game_over = [7, 9]
             self.winner = winner
-        elif self.board.squares_xo[1] == self.board.squares_xo[4] == self.board.squares_xo[7] != '':
+        elif self.board.squares[1] == self.board.squares[4] == self.board.squares[7] != '':
             self.game_over = [1, 7]
             self.winner = winner
-        elif self.board.squares_xo[2] == self.board.squares_xo[5] == self.board.squares_xo[8] != '':
+        elif self.board.squares[2] == self.board.squares[5] == self.board.squares[8] != '':
             self.game_over = [2, 8]
             self.winner = winner
-        elif self.board.squares_xo[3] == self.board.squares_xo[6] == self.board.squares_xo[9] != '':
+        elif self.board.squares[3] == self.board.squares[6] == self.board.squares[9] != '':
             self.game_over = [3, 9]
             self.winner = winner
-        elif self.board.squares_xo[1] == self.board.squares_xo[5] == self.board.squares_xo[9] != '':
+        elif self.board.squares[1] == self.board.squares[5] == self.board.squares[9] != '':
             self.game_over = [1, 9]
             self.winner = winner
-        elif self.board.squares_xo[3] == self.board.squares_xo[5] == self.board.squares_xo[7] != '':
+        elif self.board.squares[3] == self.board.squares[5] == self.board.squares[7] != '':
             self.game_over = [3, 7]
             self.winner = winner
 

@@ -86,15 +86,8 @@ class Board:
         self.square_br.top = self.r2_rect.bottom
         self.square_br.left = self.c2_rect.right
 
-        # Keep track of occupied squares.
-        self.squares = {
-            1: False, 2: False, 3: False,
-            4: False, 5: False, 6: False,
-            7: False, 8: False, 9: False,
-        }
-
         # Keep track of which squares have crosses or circles on them.
-        self.squares_xo = {
+        self.squares = {
             1: '', 2: '', 3: '',
             4: '', 5: '', 6: '',
             7: '', 8: '', 9: ''
@@ -116,8 +109,7 @@ class Board:
         new_circle.rect.center = self.squares_coordinates[square]
         self.circles.add(new_circle)
 
-        self.squares[square] = True
-        self.squares_xo[square] = 'circle'
+        self.squares[square] = 'circle'
 
         self.ttt_game.circle_turn = False
         self.ttt_game.cross_turn = True
@@ -132,8 +124,7 @@ class Board:
         new_cross.rect.center = self.squares_coordinates[square]
         self.crosses.add(new_cross)
 
-        self.squares[square] = True
-        self.squares_xo[square] = 'cross'
+        self.squares[square] = 'cross'
 
         self.ttt_game.cross_turn = False
         self.ttt_game.circle_turn = True
